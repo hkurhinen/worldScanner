@@ -1,0 +1,23 @@
+{
+  "name": "worldscanner",
+  "version": "0.0.1",
+  "description": "Module which scans all businesses from defined area using foursquare api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hkurhinen/worldScanner.git"
+  },
+  "author": "Belvain",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hkurhinen/worldScanner/issues"
+  },
+  "homepage": "https://github.com/hkurhinen/worldScanner#readme",
+  "dependencies": {
+    "async": "^2.0.0-rc.3",
+    "request": "^2.72.0"
+  }
+}
