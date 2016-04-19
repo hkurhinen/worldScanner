@@ -63,8 +63,8 @@ var WorldScanner = function (config) {
     var NE = ne || _this.config.ne;
     var SW = sw || _this.config.sw;
 
-    var rows = (NE.lat - SW.lat) / area_size - 1;
-    var cols = (NE.lng - SW.lng) / area_size - 1;
+    var rows = (NE.lat - SW.lat) / area_size - area_size;
+    var cols = (NE.lng - SW.lng) / area_size - area_size;
 
     var current_ne = {
       lat: NE.lat,
