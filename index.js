@@ -30,7 +30,8 @@ var WorldScanner = function (config) {
         var remaining = parseInt(response.headers['x-ratelimit-remaining'], 10);
         if (remaining == 0) {
           _this.scanner.pause();
-          var resume = parseInt(response.headers['X-RateLimit-Reset'], 10) - new Date().getTime();
+          var currentTimeStamp = Math.floor(Date.now() / 1000);
+          var resume = (parseInt(response.headers['x-ratelimit-reset'], 10) - currentTimeStamp) * 1000;
           _this.emit('scannerPaused', resume);
           setTimeout(function () {
             _this.scanner.resume();
