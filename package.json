@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/hkurhinen/worldScanner#readme",
   "dependencies": {
-    "async": "^2.0.0-rc.3",
+    "bull": "^1.0.0-rc1",
     "request": "^2.72.0"
   }
 }
