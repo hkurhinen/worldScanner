@@ -24,6 +24,9 @@ var WorldScanner = function (config) {
     throw new Error('Foursquare client_id and client_secret are required.');
   }
   _this.scanner = Queue('worldscanner', _this.config.redisPort, _this.config.redisHost);
+  _this.scanner.on('ready', function(){
+    _this.emit('scannerReady');
+  });
   _this.scanner.on('completed', function (task, venues) {
     if (venues && venues.length > 0) {
       for (var n = 0; n < venues.length; n++) {
@@ -31,20 +34,25 @@ var WorldScanner = function (config) {
       }
     }
   });
+  
   _this.scanner.on('paused', function () {
     _this.emit('scannerPaused');
   });
+  
   _this.scanner.on('resumed', function (task) {
     _this.emit('scannerResumed');
   });
+  
   _this.scanner.on('error', function (err) {
     _this.emit('error', err);
   });
+  
   _this.scanner.on('failed', function (scan, err) {
     _this.emit('scanFailed', {task: scan, err: err});
   });
+  
   _this.scanner.process(function (task, done) {
-    request('https://api.foursquare.com/v2/venues/search?client_id=' + _this.config.client_id + '&client_secret=' + _this.config.client_secret + '&v=20130815&intent=browse&sw=' + task.sw.lat + ',' + task.sw.lng + '&ne=' + task.ne.lat + ',' + task.ne.lng + '&limit=50', function (error, response, body) {
+    request('https://api.foursquare.com/v2/venues/search?client_id=' + _this.config.client_id + '&client_secret=' + _this.config.client_secret + '&v=20130815&intent=browse&sw=' + task.data.sw.lat + ',' + task.data.sw.lng + '&ne=' + task.data.ne.lat + ',' + task.data.ne.lng + '&limit=50', function (error, response, body) {
       if (error) {
         done(error);
       } else {
@@ -61,17 +69,17 @@ var WorldScanner = function (config) {
           var data = JSON.parse(body);
           var venues = data.response.venues || [];
           if (venues.length >= 50) {
-            var new_size = (task.ne.lat - task.sw.lat) / 2;
+            var new_size = (task.data.ne.lat - task.data.sw.lat) / 2;
             _this.emit('areaSplit', new_size);
-            _this._scan(task.ne, task.sw, new_size, true);
+            _this._scan(task.data.ne, task.data.sw, new_size, true);
             done(null, []);
           } else {
-            _this.emit('areaScanned', { ne: task.ne, sw: task.sw });
+            _this.emit('areaScanned', { ne: task.data.ne, sw: task.data.sw });
             done(null, venues);
           }
         } else {
-          var current_size = task.ne.lat - task.sw.lat;
-          _this._scan(task.ne, task.sw, current_size);
+          var current_size = task.data.ne.lat - task.data.sw.lat;
+          _this._scan(task.data.ne, task.data.sw, current_size);
           done(Error('Api returned status: ' + response.statusCode));
         }
       }
