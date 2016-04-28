@@ -22,7 +22,7 @@ var worldScanner = new WorldScanner({
     lat: -90,
     lng: -180
   },
-  area_size: 1, //Optional, default value: 1
+  area_size: 0.5, //Optional, default value: 0.5
   redisPort: 6379, //Optional, default value: 6379
   redistHost: '127.0.0.1', //Optional, default value: 127.0.0.1
   client_id: 'YOUR FOURSQUARE CLIENT_ID', //required
@@ -78,7 +78,7 @@ Starts scan for the specified area, with specified initial size. If parameters o
 Pauses scanner until resume() is called.
 
 ###WorldScanner##resume()
-Resumed paused scanner
+Resumes paused scanner
 
 ###WorldScanner##cancel()
 Stops current scan
