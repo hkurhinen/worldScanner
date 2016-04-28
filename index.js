@@ -132,7 +132,7 @@ WorldScanner.prototype.pause = function () {
   this.scanner.pause();
 };
 
-WorldScanner.prototype.pause = function () {
+WorldScanner.prototype.resume = function () {
   this.scanner.resume();
 };
 
