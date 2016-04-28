@@ -1,6 +1,6 @@
 {
   "name": "worldscanner",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Module which scans all businesses from defined area using foursquare api",
   "main": "index.js",
   "scripts": {
