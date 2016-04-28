@@ -12,7 +12,7 @@ var default_config = {
     lat: -90,
     lng: -180
   },
-  area_size: 1,
+  area_size: 0.5,
   redisPort: 6379,
   redistHost: '127.0.0.1'
 };
