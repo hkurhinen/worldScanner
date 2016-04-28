@@ -52,7 +52,7 @@ var WorldScanner = function (config) {
   });
   
   _this.scanner.process(function (task, done) {
-    request('https://api.foursquare.com/v2/venues/search?client_id=' + _this.config.client_id + '&client_secret=' + _this.config.client_secret + '&v=20130815&intent=browse&sw=' + task.data.sw.lat + ',' + task.data.sw.lng + '&ne=' + task.data.ne.lat + ',' + task.data.ne.lng + '&limit=50', function (error, response, body) {
+    request('https://api.foursquare.com/v2/venues/search?client_id=' + _this.config.client_id + '&client_secret=' + _this.config.client_secret + '&v=20160427&intent=browse&sw=' + task.data.sw.lat + ',' + task.data.sw.lng + '&ne=' + task.data.ne.lat + ',' + task.data.ne.lng + '&limit=50', function (error, response, body) {
       if (error) {
         done(error);
       } else {
